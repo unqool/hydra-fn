@@ -24,7 +24,7 @@ window.shapeBorder = (
   const combinedOptions = { ...defaultOptions, ...options };
   const { borderSize, borderColor, fillColor } = combinedOptions;
 
-  const innerSize = radius - borderSize;
+  const innerSize = radius * (1 - borderSize);
 
   return shape(index, radius, smoothing)
     .color(borderColor[0], borderColor[1], borderColor[2])
