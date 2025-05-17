@@ -3,7 +3,7 @@
  *
  * @param {number} [sides=3] - The number of sides for the shape
  * @param {number} [radius=1] - The radius of the shape
- * @param {number} [smoothing=0] - The amount of smoothing to apply to the shape edges
+ * @param {number} [smoothing=0.01] - The amount of smoothing to apply to the shape edges
  * @param {Object} [options={}] - Additional options for customizing the border
  * @param {number} [options.borderSize=0.05] - The size of the border (percentage of the shape's radius)
  * @param {number[]} [options.borderColor=[1,1,1]] - RGB color values for the border (range 0-1)
