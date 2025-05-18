@@ -8,9 +8,9 @@
  * @param {number} [options.borderSize=0.05] - The size of the border (percentage of the shape's radius)
  * @param {number[]} [options.borderColor=[1,1,1]] - RGB color values for the border (range 0-1)
  * @param {number[]} [options.fillColor=[0,0,0]] - RGB color values for the inner fill (range 0-1)
- * @returns {Object} The hydra chain
+ * @returns {Object} A Hydra chain
  */
-window.shapeBorder = (
+const shapeBorder = (
   index = 0,
   radius = 0.3,
   smoothing = 0.01,
@@ -34,3 +34,5 @@ window.shapeBorder = (
         .color(fillColor[0], fillColor[1], fillColor[2]),
     );
 };
+
+window.shapeBorder = shapeBorder;

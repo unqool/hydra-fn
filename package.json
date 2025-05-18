@@ -1,5 +1,9 @@
 {
-	"devDependencies": {
-		"@biomejs/biome": "1.9.4"
-	}
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "jsdoc-to-markdown": "9.1.1"
+  },
+  "scripts": {
+    "generate:docs": "jsdoc2md *.js > API.md"
+  }
 }
