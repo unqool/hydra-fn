@@ -1,3 +1,15 @@
+const mapWithProperties = (arr, callback) => {
+  const result = arr.map(callback);
+
+  // Copy hidden properties
+  for (const key in arr) {
+    if (key.charAt(0) === "_") {
+      result[key] = arr[key];
+    }
+  }
+  return result;
+};
+
 /**
  * Creates a shape with a border
  *
@@ -12,7 +24,7 @@
  * @returns {Object} A Hydra chain
  */
 const shapeBorder = (
-  index = 0,
+  sides = 0,
   radius = 0.3,
   smoothing = 0.01,
   options = {},
@@ -20,31 +32,40 @@ const shapeBorder = (
   const defaultOptions = {
     borderSize: 0.05,
     borderColor: [1, 1, 1],
-    fillColor: [0, 0, 0],
     transparent: false,
   };
   const combinedOptions = { ...defaultOptions, ...options };
-  const { borderSize, borderColor, fillColor, transparent } = combinedOptions;
+  const { borderSize, borderColor, transparent } = combinedOptions;
 
-  const innerSize = radius * (1 - borderSize);
+  const calcInnerSize = (radius, borderSize) => radius * (1 - borderSize);
+  let innerSize = calcInnerSize(radius, borderSize);
 
-  if (transparent) {
-    return solid(borderColor[0], borderColor[1], borderColor[2])
-      .mask(shape(index, radius, smoothing))
-      .layer(
-        solid(fillColor[0], fillColor[1], fillColor[2]).mask(
-          shape(index, innerSize, smoothing),
-        ),
-      );
+  if (radius.length > 0) {
+    innerSize = mapWithProperties(radius, (item) =>
+      calcInnerSize(item, borderSize),
+    );
   }
 
-  return shape(index, radius, smoothing)
-    .color(borderColor[0], borderColor[1], borderColor[2])
-    .layer(
-      solid(fillColor[0], fillColor[1], fillColor[2]).mask(
-        shape(index, innerSize, smoothing),
-      ),
+  if (borderSize.length > 0) {
+    innerSize = mapWithProperties(borderSize, (item) =>
+      calcInnerSize(radius, item),
     );
+  }
+
+  // This is currently a fallback if both radius and borderSize are in sequence mode.
+  if (radius.length > 0 && borderSize.length > 0) {
+    innerSize = calcInnerSize(radius[0], borderSize[0]);
+  }
+
+  if (transparent) {
+    return solid(...borderColor)
+      .mask(shape(sides, radius, smoothing))
+      .mask(shape(sides, innerSize, smoothing).invert());
+  }
+
+  return shape(sides, radius, smoothing)
+    .color(...borderColor)
+    .layer(solid(0, 0, 0).mask(shape(sides, innerSize, smoothing)));
 };
 
 window.shapeBorder = shapeBorder;
