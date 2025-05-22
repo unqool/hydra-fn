@@ -32,3 +32,5 @@ const callOnTick = (callbacks, secondsUntilTick) => {
     window._lastTickCount = currentTickCount;
   }
 };
+
+window.callOnTick = callOnTick;
