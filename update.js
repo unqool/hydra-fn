@@ -13,12 +13,13 @@ window._lastTickCount = -1;
 
 /**
  * Executes a set of callback functions on a time-based interval (tick).
- *
+ * @function
+ * @name callOnTick
  * @param {Function[]} callbacks - Array of functions to call on each tick
  * @param {number} [secondsUntilTick=1] - Number of seconds between ticks
  * @returns {void}
  */
-const callOnTick = (callbacks, secondsUntilTick) => {
+window.callOnTick = (callbacks, secondsUntilTick) => {
   if (secondsUntilTick !== 1) {
     window._secondsUntilTick = secondsUntilTick;
   }
@@ -32,5 +33,3 @@ const callOnTick = (callbacks, secondsUntilTick) => {
     window._lastTickCount = currentTickCount;
   }
 };
-
-window.callOnTick = callOnTick;

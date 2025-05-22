@@ -12,7 +12,8 @@ const mapWithProperties = (arr, callback) => {
 
 /**
  * Creates a shape with a border
- *
+ * @function
+ * @name shapeBorder
  * @param {number} [sides=3] - The number of sides for the shape
  * @param {number} [radius=1] - The radius of the shape
  * @param {number} [smoothing=0.01] - The amount of smoothing to apply to the shape edges
@@ -23,7 +24,7 @@ const mapWithProperties = (arr, callback) => {
  * @param {boolean} [options.transparent=false] - Whether the background is transparent
  * @returns {Object} A Hydra chain
  */
-const shapeBorder = (
+window.shapeBorder = (
   sides = 3,
   radius = 0.3,
   smoothing = 0.01,
@@ -67,5 +68,3 @@ const shapeBorder = (
     .color(...borderColor)
     .layer(solid(0, 0, 0).mask(shape(sides, innerSize, smoothing)));
 };
-
-window.shapeBorder = shapeBorder;
