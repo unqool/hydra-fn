@@ -24,7 +24,7 @@ const mapWithProperties = (arr, callback) => {
  * @returns {Object} A Hydra chain
  */
 const shapeBorder = (
-  sides = 0,
+  sides = 3,
   radius = 0.3,
   smoothing = 0.01,
   options = {},
